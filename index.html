@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Assistant - Joe</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100">
+        
+        <div class="w-full max-w-4xl bg-white/70 backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden flex flex-col md:flex-row h-[90vh]">
+
+            <div class="w-full md:w-1/3 p-6 border-b md:border-b-0 md:border-r border-gray-200/50 flex flex-col space-y-6">
+                <div class="text-center">
+                    <h1 class="text-2xl font-bold text-indigo-700">Survey Assistant</h1>
+                    <p class="text-lg font-semibold text-gray-600">I'm Joe</p>
+                </div>
+
+                <div>
+                    <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Response Persona</label>
+                    <select id="country" class="w-full bg-white border border-gray-300 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+                        <option value="American">American</option>
+                        <option value="British">British</option>
+                        <option value="Australian" selected>Australian</option>
+                        <option value="Canadian">Canadian</option>
+                        <option value="German">German</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="word-count" class="block text-sm font-medium text-gray-700 mb-1">Response Length: <span id="word-count-value" class="font-bold text-indigo-600">10</span> words</label>
+                    <input id="word-count" type="range" min="3" max="20" value="10" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                </div>
+                
+                <div>
+                    <label for="image-upload" class="w-full cursor-pointer bg-white border border-gray-300 rounded-lg shadow-sm py-2 px-3 text-center block hover:bg-gray-50 transition">
+                        <span class="text-sm font-medium text-gray-700">Upload Image (Optional)</span>
+                        <input id="image-upload" type="file" class="hidden" accept="image/*">
+                    </label>
+                    <p id="image-name" class="text-xs text-gray-500 mt-1 truncate"></p>
+                </div>
+                
+                <div class="flex-grow"></div>
+
+                <div class="text-center pt-4 border-t border-gray-200/80">
+                      <a href="https://t.me/joegoldberg2025" target="_blank" rel="noopener noreferrer" class="group inline-flex items-center space-x-2 text-gray-500 hover:text-indigo-600 transition-colors duration-300">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 group-hover:text-indigo-500 transition-colors" viewBox="0 0 20 20" fill="currentColor">
+                              <path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 01-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="text-sm font-semibold bg-gradient-to-r from-indigo-600 to-purple-500 bg-clip-text text-transparent">
+                              Developed by Joe Goldberg
+                          </span>
+                      </a>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col bg-white/50">
+                <div id="chat-window" class="flex-1 p-6 overflow-y-auto custom-scrollbar space-y-4">
+                    <div class="flex justify-start">
+                        <div class="bg-indigo-500 text-white p-3 rounded-lg rounded-bl-none max-w-sm shadow-md">
+                            <p class="text-sm">Hello! I'm Joe. Ask me a survey question, and I'll help you write a genuine answer based on the persona you've selected.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-4 bg-white/80 border-t border-gray-200/50">
+                     <div id="image-preview-container" class="mb-2 hidden">
+                         <div class="relative inline-block">
+                             <img id="image-preview" src="" alt="Image preview" class="h-16 w-16 rounded-lg object-cover">
+                             <button id="remove-image-btn" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full h-6 w-6 flex items-center justify-center text-xs font-bold">&times;</button>
+                         </div>
+                     </div>
+                    <div class="relative flex items-center bg-white rounded-full shadow-md custom-focus-ring transition-all">
+                        <textarea id="user-input" class="w-full h-12 p-3 pl-5 pr-28 bg-transparent resize-none focus:outline-none text-sm" placeholder="Type your survey question..." rows="1"></textarea>
+                        <div class="absolute right-2 flex items-center space-x-1">
+                            <button id="clear-btn" title="Clear Input" class="p-2 text-gray-400 hover:text-gray-600 transition">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                            </button>
+                            <button id="send-btn" class="bg-indigo-600 text-white rounded-full p-2 shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-transform active:scale-95">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
